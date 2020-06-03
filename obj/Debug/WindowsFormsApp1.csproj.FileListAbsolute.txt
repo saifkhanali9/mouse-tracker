@@ -1,0 +1,15 @@
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csprojAssemblyReference.cache
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\Gma.System.MouseKeyHook.dll
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CopyComplete
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\EventHook.dll
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.dll
+C:\Saif\Office\C#\Projects\MouseClick\WindowsFormsApp1\bin\Debug\Newtonsoft.Json.xml
