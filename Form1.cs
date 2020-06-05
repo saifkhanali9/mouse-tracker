@@ -76,7 +76,6 @@ namespace WindowsFormsApp1
             long currTime = new StartTime().getStartTime();
             long timeSinceStartSession = currTime - startTime;
             ScreenElement structure = ScreenElement.fromAutomationElement(ElementFromCursor());
-            // System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "[\n");
             System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "{\"eventType\": \"mm\"" + ", \"mouseX\": " + Cursor.Position.X + ", \"mouseY\": " + Cursor.Position.Y + ", \"time\": " + timeSinceStartSession + "}");
         }
 
@@ -85,24 +84,17 @@ namespace WindowsFormsApp1
             POINT p;
             if (GetCursorPos(out p))
             {
-                //publicMouseClickCheck = 1;
-                //System.Windows.Point clickablePoint = element.GetClickablePoint();
-                //System.Windows.Forms.Cursor.Position = new System.Drawing.Point((int)clickablePoint.X, (int)clickablePoint.Y);
                 ScreenElement structure = ScreenElement.fromAutomationElement(ElementFromCursor());
                 elementWLabel.Text = structure.width.ToString();
                 elementHLabel.Text = structure.height.ToString();
                 elementXLabel.Text = structure.x.ToString();
                 elementYLabel.Text = structure.y.ToString();
-                //buttonWidth.Text = structure.width.ToString();
-               // buttonHeight.Text = structure.height.ToString();
                 mcOutXVal.Text = Convert.ToString(p.X);
                 mcOutYVal.Text = Convert.ToString(p.Y);
                 long currTime = new StartTime().getStartTime();
                 long timeSinceStartSession = currTime - startTime;
                 if (double.IsInfinity(structure.x) || double.IsInfinity(structure.y))
                 {
-                    /*ScreenElement structureInCondition = ScreenElement.fromAutomationElement(publicElement);
-                    System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "\n{\"eventType\": \"mc\"" + ", \"mouseX\": " + p.X + ", \"mouseY\": " + p.Y + ", \"elementX\": " + structureInCondition.x + ", \"elementY\": " + "\"kkk\"" + ", \"elementW\": " + structureInCondition.width + ", \"elementH\": " + structureInCondition.height + ", \"time\": " + timeSinceStartSession + "}");*/
                     System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "\n{\"eventType\": \"mc\"" + ", \"mouseX\": " + p.X + ", \"mouseY\": " + p.Y + ", \"elementX\": " + structureInCondition.x + ", \"elementY\": " + structureInCondition.y + ", \"elementW\": " + structureInCondition.width + ", \"elementH\": " + structureInCondition.height + ", \"time\": " + timeSinceStartSession + "}");
                 }
                 else
@@ -115,7 +107,6 @@ namespace WindowsFormsApp1
         {
             try
             {
-                // Convert mouse position from System.Drawing.Point to System.Windows.Point.
                 System.Windows.Point point = new System.Windows.Point(Cursor.Position.X, Cursor.Position.Y);
                 AutomationElement element = AutomationElement.FromPoint(point);
                 publicElement = element;
@@ -196,9 +187,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
-        
-
         private void button1_MouseMove(object sender, MouseEventArgs e)
         {
             double xVal = e.X;
@@ -210,10 +198,6 @@ namespace WindowsFormsApp1
             timeButtonVal.Text = timeSinceStartSession.ToString();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "\n]");
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
