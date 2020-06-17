@@ -11,11 +11,18 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Gma.System.MouseKeyHook;
 using Newtonsoft.Json;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        Timer timer = new Timer();
+        System.Drawing.Point lastPoint = System.Drawing.Point.Empty;//Point.Empty represents null for a Point object
+        int check = 0;
+        int clickCheck = 0;
         string[] list1 = new string[4];
         long startTime = new StartTime().getStartTime();
         AutomationElement publicElement;
@@ -23,25 +30,61 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
-            var timer = new Timer();
+            //var timer = new Timer();
             timer.Interval = 16;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
         private void timer_Tick(object sender, EventArgs e)
         {
+
+            firstClick();
             ScreenElement structure = ScreenElement.fromAutomationElement(ElementFromCursor());
             structureInCondition = structure;
-            elementWLabel.Text = structure.width.ToString();
-            elementHLabel.Text = structure.height.ToString();
-            elementXLabel.Text = structure.x.ToString();
-            elementYLabel.Text = structure.y.ToString();
-            mmXVal.Text = Cursor.Position.X.ToString();
-            mmYVal.Text = Cursor.Position.Y.ToString();
             long currTime = new StartTime().getStartTime();
             long timeSinceStartSession = currTime - startTime;
-            timeVal.Text = timeSinceStartSession.ToString();
             System.IO.File.AppendAllText(@"C:\Saif\Office\C#\Projects\MouseClick\file\" + startTime.ToString() + ".json", "\n{\"eventType\": \"mm\"" + ", \"mouseX\": " + Cursor.Position.X + ", \"mouseY\": " + Cursor.Position.Y+ ", \"time\": " + timeSinceStartSession + "}");
+        }
+
+        private void firstClick()
+        {
+            if (check == 0)
+            {
+                lastPoint = Cursor.Position;
+                //isMouseDown = true;
+                check = 1;
+            }
+            else//if our last point is not null, which in this case we have assigned above
+
+            {
+
+                if (pictureBox1.Image == null)//if no available bitmap exists on the picturebox to draw on
+
+                {
+                    //create a new bitmap
+                    Bitmap bmp = new Bitmap(Convert.ToInt32(SystemParameters.VirtualScreenWidth), Convert.ToInt32(SystemParameters.VirtualScreenHeight));
+
+                    pictureBox1.Image = bmp; //assign the picturebox.Image property to the bitmap created
+
+                }
+
+                using (Graphics g = Graphics.FromImage(pictureBox1.Image))
+
+                {//we need to create a Graphics object to draw on the picture box, its our main tool
+
+                    //when making a Pen object, you can just give it color only or give it color and pen size
+
+                    g.DrawLine(new Pen(Color.Black, 1), lastPoint, Cursor.Position);
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    //this is to give the drawing a more smoother, less sharper look
+
+                }
+
+                pictureBox1.Invalidate();//refreshes the picturebox
+
+                lastPoint = Cursor.Position;//keep assigning the lastPoint to the current mouse position
+
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -82,15 +125,9 @@ namespace WindowsFormsApp1
         private void MouseClickAll(object sender, MouseEventArgs e)
         {
             POINT p;
-            if (GetCursorPos(out p))
+            if (GetCursorPos(out p) && clickCheck == 0)
             {
                 ScreenElement structure = ScreenElement.fromAutomationElement(ElementFromCursor());
-                elementWLabel.Text = structure.width.ToString();
-                elementHLabel.Text = structure.height.ToString();
-                elementXLabel.Text = structure.x.ToString();
-                elementYLabel.Text = structure.y.ToString();
-                mcOutXVal.Text = Convert.ToString(p.X);
-                mcOutYVal.Text = Convert.ToString(p.Y);
                 long currTime = new StartTime().getStartTime();
                 long timeSinceStartSession = currTime - startTime;
                 if (double.IsInfinity(structure.x) || double.IsInfinity(structure.y))
@@ -187,22 +224,23 @@ namespace WindowsFormsApp1
                 }
             }
         }
-        private void button1_MouseMove(object sender, MouseEventArgs e)
+
+        private int x = 0;
+        private int y = 0;
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            double xVal = e.X;
-            double yVal = e.Y;
-            mmXButtonVal.Text = xVal.ToString();
-            mmYButtonVal.Text = yVal.ToString();
-            long currTime = new StartTime().getStartTime();
-            long timeSinceStartSession = currTime - startTime;
-            timeButtonVal.Text = timeSinceStartSession.ToString();
+            x = e.X;
+            y = e.Y;
+
+            this.Invalidate();
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonColor_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Keep Aruba Happy","No... " +
-                "I won't change it!!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //System.Windows.MessageBox.Show("Click if you love maths", "Wester Eggs", MessageBoxButton.OK);
+            clickCheck = 1;
+            timer.Stop();
         }
     }
 }
