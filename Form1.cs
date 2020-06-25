@@ -125,8 +125,7 @@ namespace WindowsFormsApp1
         private void MouseClickAll(object sender, MouseEventArgs e)
         {
             POINT p;
-            if (GetCursorPos(out p) && clickCheck == 0)
-            {
+            if (GetCursorPos(out p) && clickCheck == 0)           {
                 ScreenElement structure = ScreenElement.fromAutomationElement(ElementFromCursor());
                 long currTime = new StartTime().getStartTime();
                 long timeSinceStartSession = currTime - startTime;
@@ -236,11 +235,5 @@ namespace WindowsFormsApp1
             this.Invalidate();
         }
 
-        private void buttonColor_Click(object sender, EventArgs e)
-        {
-            //System.Windows.MessageBox.Show("Click if you love maths", "Wester Eggs", MessageBoxButton.OK);
-            clickCheck = 1;
-            timer.Stop();
-        }
     }
 }
